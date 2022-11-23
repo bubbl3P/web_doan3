@@ -41,6 +41,11 @@
                     @csrf
                     @auth
                         <div class="form-group">
+                            <label>Avatar</label>
+                            <img src="{{ auth()->user()->avatar }}" class="rounded-circle" width="32">
+                        </div>
+
+                        <div class="form-group">
                             <label>Full Name</label>
                             <input class="form-control" type="text" disabled value="{{ auth()->user()->name }}">
                         </div>
@@ -48,10 +53,7 @@
                             <label>Email address</label>
                             <input class="form-control" type="email" disabled value="{{ auth()->user()->email }}">
                         </div>
-                        <div class="form-group">
-                            <label>Avatar</label>
-                            <img src="{{ auth()->user()->avatar }}" class="rounded-circle" width="32">
-                        </div>
+
                     @endauth
                     @guest
                         <div class="form-group">
@@ -70,23 +72,23 @@
                         <input class="form-control" type="password" required id="password"
                                placeholder="Enter your password" name="password">
                     </div>
-                    <div class="form-group">
-                        @foreach($roles as $role => $val)
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input
-                                    type="radio"
-                                    id="{{ $role }}"
-                                    name="role"
-                                    class="custom-control-input"
-                                    value="{{ $val }}"
-                                    checked
-                                >
-                                <label class="custom-control-label" for="{{ $role }}">
-                                    {{ __('frontpage.' . $role) }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
+                    {{--                    <div class="form-group">--}}
+                    {{--                        @foreach($roles as $role => $val)--}}
+                    {{--                            <div class="custom-control custom-radio custom-control-inline">--}}
+                    {{--                                <input--}}
+                    {{--                                    type="radio"--}}
+                    {{--                                    id="{{ $role }}"--}}
+                    {{--                                    name="role"--}}
+                    {{--                                    class="custom-control-input"--}}
+                    {{--                                    value="{{ $val }}"--}}
+                    {{--                                    checked--}}
+                    {{--                                >--}}
+                    {{--                                <label class="custom-control-label" for="{{ $role }}">--}}
+                    {{--                                    {{ __('frontpage.' . $role) }}--}}
+                    {{--                                </label>--}}
+                    {{--                            </div>--}}
+                    {{--                        @endforeach--}}
+                    {{--                    </div>--}}
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="checkbox-signup">

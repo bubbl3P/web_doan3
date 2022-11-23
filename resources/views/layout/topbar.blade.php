@@ -148,7 +148,7 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button"
                aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar">
-                    <img src="{{ auth()->user()->avatar }}" alt="user-image" class="rounded-circle">
+                    <img src="" alt="user-image" class="rounded-circle">
                 </span>
                 <span>
                     <span class="account-user-name">Dominic Keller</span>
