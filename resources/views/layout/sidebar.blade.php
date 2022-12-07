@@ -36,7 +36,7 @@
                                 <li class="side-nav-title side-nav-item">Manage</li>
 
                                 <li class="side-nav-item">
-                                    <a href="}" class="side-nav-link">
+                                    <a href="" class="side-nav-link">
                                         <i class="uil-home-alt"></i>
                                         <span> Users </span>
                                     </a>
@@ -48,8 +48,6 @@
                                         <span> Posts </span>
                                     </a>
                                 </li>
-
-
                             </ul>
                             <div class="clearfix"></div>
                         </div>

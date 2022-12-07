@@ -2,6 +2,8 @@
 
     namespace App\Http\Controllers;
 
+    use App\Enums\UserRoleEnum;
+    use App\Http\Requests\Auth\RegisteringRequest;
     use App\Models\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -10,6 +12,11 @@
 
     class AuthController extends Controller
     {
+        public function admin()
+        {
+            return view('layout.master');
+        }
+
         public function login()
         {
             return view('auth.login');
@@ -22,20 +29,31 @@
 
         public function callback($provider)
         {
-            $user = Socialite::driver($provider)->user();
+            $data = Socialite::driver($provider)->user();
 
-            $user = User::firstOrCreate([
-                'email' => $user->getEmail(),
-            ], [
-                'name' => $user->getName(),
-                'avatar' => $user->getAvatar(),
-            ]);
+            $user = User::query()
+                ->where('email', $data->getEmail())
+                ->first();
+            $checkExit = true;
+            if (is_null($user)) {
+                $user = new User();
+                $user->email = $data->getEmail();
+                $checkExit = false;
+            }
+            $user->name = $data->getName();
+            $user->avatar = $data->getAvatar();
+            $user->save();
 
             Auth::login($user);
+            if($checkExit){
+               $role = strtolower(UserRoleEnum::getKeys($user->role)[0]);
+                return redirect()->route("$role.welcome");
+            }
             return redirect()->route('register');
+
         }
 
-        public function registering(Request $request)
+        public function registering(RegisteringRequest $request)
         {
             $password = Hash::make($request->password);
             if (auth()->check()) {
@@ -52,6 +70,7 @@
                         'password' => $password,
                     ]);
                     Auth::login($user);
+                    return view('layout.master');
                 }
 
             }

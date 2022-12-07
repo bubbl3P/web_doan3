@@ -23,7 +23,6 @@
     <div class="auth-fluid-form-box">
         <div class="align-items-center d-flex h-100">
             <div class="card-body">
-
                 <!-- title-->
                 <h4 class="mt-0">Free Sign Up</h4>
                 <p class="text-muted mb-4">Don't have an account? Create your account, it takes less than a minute</p>
@@ -72,6 +71,21 @@
                         <input class="form-control" type="password" required id="password"
                                placeholder="Enter your password" name="password">
                     </div>
+
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio"  id="applicant" name="role" class="custom-control-input" value="1" checked>
+                            <label class="custom-control-label" for="applicant">Applicant</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio"  id="hr" name="role" class="custom-control-input" value="2" >
+                            <label class="custom-control-label" for="hr">HR</label>
+                        </div>
+                    </div>
+
+
+
+
                     {{--                    <div class="form-group">--}}
                     {{--                        @foreach($roles as $role => $val)--}}
                     {{--                            <div class="custom-control custom-radio custom-control-inline">--}}
