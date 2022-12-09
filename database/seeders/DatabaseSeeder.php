@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
 
         Language::factory(10)->create();
         Company::factory(10)->create();
-        User::factory(10000)->create();
+        User::factory(100)->create();
     }
 }

@@ -26,3 +26,4 @@
         return view('layout.master');
     })->name('welcome');
 
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
