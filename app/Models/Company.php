@@ -23,7 +23,5 @@ class Company extends Model
         'email',
         'logo',
 
-
-
     ];
 }
