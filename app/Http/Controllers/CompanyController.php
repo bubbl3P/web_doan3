@@ -27,4 +27,10 @@
             return $this->successResponse($data);
 
         }
+        public function check($companyName): bool
+        {
+            return $this->model
+                ->where('name', $companyName)
+                ->exists();
+        }
     }

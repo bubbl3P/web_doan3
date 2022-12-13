@@ -5,6 +5,7 @@
     use App\Enums\PostCurrencySalaryEnum;
     use App\Http\Controllers\Controller;
     use App\Http\Controllers\ResponseTrait;
+    use App\Http\Requests\Post\StoreRequest;
     use App\Imports\PostImport;
     use App\Models\Post;
     use App\Models\User;
@@ -57,7 +58,7 @@
 
         }
 
-        public function store(Request $request)
+        public function store(StoreRequest $request)
         {
             return $request->all();
         }

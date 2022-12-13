@@ -8,14 +8,14 @@
                 @else
                     2022 - {{ date('Y') }} © {{ config('app.name') }}
                 @endif
+                - Đồ Án 3
             </div>
-            <div class="col-md-6">
-                <div class="text-md-right footer-links d-none d-md-block">
-                    <a href="javascript: void(0);">About</a>
-                    <a href="javascript: void(0);">Support</a>
-                    <a href="javascript: void(0);">Contact Us</a>
-                </div>
-            </div>
+            {{--            <div class="col-md-6">--}}
+            {{--                <div class="text-md-right footer-links d-none d-md-block">--}}
+            {{--                    <a href="javascript: void(0);">About</a>--}}
+            {{--                    <a href="javascript: void(0);">Support</a>--}}
+            {{--                    <a href="javascript: void(0);">Contact Us</a>--}}
+            {{--                </div>--}}
         </div>
     </div>
 </footer>

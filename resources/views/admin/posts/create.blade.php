@@ -1,13 +1,20 @@
 @extends('layout.master')
 @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+
 @endpush
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('admin.posts.store') }}" method="POST">
+                    <div id="div-error" class="alert alert-danger d-none"></div>
+                    <form class="form-horizontal" action="{{ route('admin.posts.store') }}" method="POST"
+                          id="form-create">
                         @csrf
                         <div class="form-group">
                             <label>Company</label>
@@ -17,7 +24,7 @@
 
                         <div class="form-group">
                             <label>Language</label>
-                            <select class="form-control" multiple name="language" id="select-language">
+                            <select class="form-control" multiple name="languages[]" id="select-language">
                             </select>
                         </div>
 
@@ -45,7 +52,7 @@
                             </div>
                             <div class="form-group col-4">
                                 <label>Currency Salary</label>
-                                <select name="currency-salary" class="form-control">
+                                <select name="currency_salary" class="form-control">
                                     @foreach($currencies as $currency => $value)
                                         <option value="{{ $value }}">
                                             {{ $currency }}
@@ -80,7 +87,7 @@
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label>Title</label>
-                                <input type="text" class="form-control" name="title" id="title">
+                                <input type="text" class="form-control" name="job_title" id="title">
                             </div>
                             <div class="form-group  col-6">
                                 <label>Slug</label>
@@ -88,7 +95,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button id="btn-submit" class="btn btn-success" disabled>Create</button>
+                            <button id="btn-submit" class="btn btn-success">Create</button>
                         </div>
                     </form>
                 </div>
@@ -99,6 +106,7 @@
 @endsection
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
     <script>
 
         function generateTitle() {
@@ -146,6 +154,11 @@
                         </option>`);
                 }
             })
+        }
+
+        async function checkCompany() {
+            const response = await fetch('{{ route('api.companies.check') }}/' + $("#select").val());
+            console.log(response);
         }
 
         $(document).ready(async function () {
@@ -218,20 +231,49 @@
             })
 
             $("#slug").change(function () {
-                $("#btn-submit").attr('disabled',true )
+                $("#btn-submit").attr('disabled', true)
                 $.ajax({
                     url: '{{ route('api.posts.slug.check') }}',
                     type: 'GET',
                     dataType: 'json',
                     data: {slug: $(this).val()},
                     success: function (response) {
-                        if(response.success){
-                            $("#btn-submit").attr('disabled',false);
+                        if (response.success) {
+                            $("#btn-submit").attr('disabled', false);
                         }
                     }
                 });
             })
 
+            $("#form-create").validate({
+                rules: {},
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: $(form).attr('action'),
+                        type: 'POST',
+                        dataType: 'json',
+                        data: $(form).serialize(),
+                        success: function (response) {
+                            $("#div-error").hide();
+                            checkCompany();
+                        },
+                        error: function (response) {
+                            const errors = Object.values(response.responseJSON.errors);
+                            let string = '<ul>';
+                            errors.forEach(function (each) {
+                                each.forEach(function (error) {
+                                    $("#div-error").append($('<li>').append(error));
+                                    string += `<li>${error}</li>`;
+                                });
+                                string += '</ul>';
+                                $("#div-error").html(string);
+                                $("#div-error").removeClass("d-none").show();
+
+                            })
+                        },
+                    });
+                }
+            });
         });
     </script>
 
