@@ -5,6 +5,7 @@
     use App\Enums\PostCurrencySalaryEnum;
     use App\Http\Controllers\Controller;
     use App\Http\Controllers\ResponseTrait;
+    use App\Http\Controllers\SystemConfigController;
     use App\Http\Requests\Post\StoreRequest;
     use App\Imports\PostImport;
     use App\Models\Post;
@@ -39,10 +40,11 @@
 
         public function create()
         {
-            $currencies = PostCurrencySalaryEnum::asArray();
+          $configs = SystemConfigController::getAndCache();
 
             return view('admin.posts.create', [
-                'currencies' => $currencies,
+                'currencies' => $configs['currencies'],
+                'countries' => $configs['countries'],
             ]);
         }
 

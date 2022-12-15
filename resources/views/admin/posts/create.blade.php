@@ -1,9 +1,11 @@
 @extends('layout.master')
 @push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/summernote-bs4.css') }}">
     <style>
         .error {
             color: red;
         }
+
     </style>
 
 @endpush
@@ -14,7 +16,7 @@
                 <div class="card-body">
                     <div id="div-error" class="alert alert-danger d-none"></div>
                     <form class="form-horizontal" action="{{ route('admin.posts.store') }}" method="POST"
-                          id="form-create">
+                          id="form-create-post">
                         @csrf
                         <div class="form-group">
                             <label>Company</label>
@@ -28,15 +30,15 @@
                             </select>
                         </div>
 
-                        <div class="form-row">
+                        <div class="form-row select-location">
                             <div class="form-group col-6">
                                 <label>City</label>
-                                <select class="form-control" name="city" id="select-city">
+                                <select class="form-control select-city" name="city" id="select-city">
                                 </select>
                             </div>
                             <div class="form-group col-6">
                                 <label>District</label>
-                                <select class="form-control" name="district" id="select-district">
+                                <select class="form-control select-district" name="district" id="select-district">
                                 </select>
                             </div>
                         </div>
@@ -63,11 +65,11 @@
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-8">
                                 <label>Requirements</label>
-                                <textarea name="requirement" class="form-control"></textarea>
+                                <textarea name="requirement" id="text-requirement" class="form-control"></textarea>
                             </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 <label>Number Applicant</label>
                                 <input type="number" class="form-control" name="number_applicants">
                             </div>
@@ -102,11 +104,88 @@
             </div>
         </div>
     </div>
+
+
+    <div id="modal-company" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Company</h4>
+                    <button type="button" class="close float-right" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-create-company" class="form-horizontal" action="{{ route('admin.companies.store') }}"
+                          method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input readonly name="name" id="company" class="form-control">
+                        </div>
+                        <div class="form-row select-location">
+                            <div class="form-group col-4">
+                                <label>Country (*)</label>
+                                <select class="form-control" name="country" id='country'>
+                                    @foreach($countries as $val => $name)
+                                        <option value="{{ $val }}">
+                                            {{ $name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label>City (*)</label>
+                                <select class="form-control select-city" name="city" id='city'></select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label>District</label>
+                                <select class="form-control select-district" name="district" id='district'></select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Address</label>
+                                <input type="text" name="address" class="form-control">
+                            </div>
+                            <div class="form-group col-6">
+                                <label>Address2</label>
+                                <input type="text" name="address2" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Zipcode</label>
+                                <input type="number" name="zipcode" class="form-control">
+                            </div>
+                            <div class="form-group col-6">
+                                <label>Phone</label>
+                                <input type="number" name="phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control">
+                            </div>
+                            <div class="form-group col-6">
+                                <label style="margin-right: 5px">Logo</label>
+                                <input type="file" name="logo"
+                                       oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+                                <img id="pic" height="100"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="submitForm('company')" class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
+    <script src="{{ asset('js/summernote-bs4.min.js') }}"></script>
     <script>
 
         function generateTitle() {
@@ -141,28 +220,88 @@
             });
         }
 
-        async function loadDistrict() {
-            $("#select-district").empty();
-            const path = $("#select-city option:selected").data('path');
+        async function loadDistrict(parent) {
+            parent.find(".select-district").empty();
+            const path = parent.find(".select-city option:selected").data('path');
             const response = await fetch('{{ asset('locations/') }}' + path);
             const districts = await response.json();
+            const selectedValue = $("#select-district").val();
+
+            let string = '';
             $.each(districts.district, function (index, each) {
-                if (each.pre === 'Quận') {
-                    $("#select-district").append(`
-                        <option >
-                            ${each.name}
-                        </option>`);
+
+                if (each.pre === 'Quận' || each.pre === 'Huyện') {
+                    string += `<option`;
+                    if (selectedValue === each.name) {
+                        string += ` selected `;
+                    }
+                    string += `>${each.name}</option>`;
+
                 }
             })
+            parent.find(".select-district").append(string);
         }
 
         async function checkCompany() {
-            const response = await fetch('{{ route('api.companies.check') }}/' + $("#select").val());
-            console.log(response);
+            $.ajax({
+                url: '{{ route('api.companies.check') }}/' + $("#select-company").val(),
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.data) {
+                        submitForm('post')
+                    } else {
+                        $("#modal-company").modal("show");
+                        $("#company").val($("#select-company").val());
+                        $("#city").val($("#select-city").val()).trigger('change');
+                    }
+                },
+                error: function (response) {
+
+                },
+            });
         }
 
+        function submitForm(type) {
+            const obj = $("#form-create-"+type);
+            const formData = new FormData(obj[0]);
+            $.ajax({
+                url: obj.attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                async: false,
+
+                encrypt: 'multipart/form-data',
+                success: function (response) {
+                    $("#div-error").hide();
+                },
+                error: function (response) {
+                    const errors = Object.values(response.responseJSON.errors);
+                    let string = '<ul>';
+                    errors.forEach(function (each) {
+                        each.forEach(function (error) {
+                            $("#div-error").append($('<li>').append(error));
+                            string += `<li>${error}</li>`;
+                        });
+                        string += '</ul>';
+                        $("#div-error").html(string);
+                        $("#div-error").removeClass("d-none").show();
+
+                    })
+                },
+            });
+        }
+
+
         $(document).ready(async function () {
-            $("#select-city").select2();
+            $("#text-requirement").summernote();
+            $("#select-city").select2({tags: true});
+
+            $("#city").select2({tags: true});
             const response = await fetch('{{ asset('locations/index.json') }}');
             const cities = await response.json();
             $.each(cities, function (index, each) {
@@ -170,12 +309,17 @@
                     <option data-path='${each.file_path}'>
                         ${index}
                     </option>`)
+                $("#city").append(`
+                <option data-path='${each.file_path}'>
+                    ${index}
+                </option>`)
             })
-            $("#select-city").change(function () {
-                loadDistrict();
+            $("#select-city, #city").change(function () {
+                loadDistrict($(this).parents('.select-location'));
             })
-            $("#select-district").select2();
-            loadDistrict();
+            $("#select-district").select2({tags: true});
+            $("#district").select2({tags: true});
+            await loadDistrict($('#select-city').parents('.select-location'));
 
 
             $("#select-company").select2({
@@ -245,35 +389,15 @@
                 });
             })
 
-            $("#form-create").validate({
+            $("#form-create-post").validate({
                 rules: {},
-                submitHandler: function (form) {
-                    $.ajax({
-                        url: $(form).attr('action'),
-                        type: 'POST',
-                        dataType: 'json',
-                        data: $(form).serialize(),
-                        success: function (response) {
-                            $("#div-error").hide();
-                            checkCompany();
-                        },
-                        error: function (response) {
-                            const errors = Object.values(response.responseJSON.errors);
-                            let string = '<ul>';
-                            errors.forEach(function (each) {
-                                each.forEach(function (error) {
-                                    $("#div-error").append($('<li>').append(error));
-                                    string += `<li>${error}</li>`;
-                                });
-                                string += '</ul>';
-                                $("#div-error").html(string);
-                                $("#div-error").removeClass("d-none").show();
-
-                            })
-                        },
-                    });
+                submitHandler: function () {
+                    checkCompany()
                 }
+
             });
+
+
         });
     </script>
 

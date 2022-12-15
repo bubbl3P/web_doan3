@@ -12,10 +12,10 @@
 
     class AuthController extends Controller
     {
-        public function admin()
-        {
-            return view('layout.master');
-        }
+//        public function admin()
+//        {
+//            return view('layout.master');
+//        }
 
         public function login()
         {
@@ -42,11 +42,13 @@
             }
             $user->name = $data->getName();
             $user->avatar = $data->getAvatar();
+            $user->role =UserRoleEnum::ADMIN;
             $user->save();
 
-            Auth::login($user);
-            if($checkExit){
-               $role = strtolower(UserRoleEnum::getKeys($user->role)[0]);
+            $role = strtolower(UserRoleEnum::getKeys($user->role)[0]);
+
+            Auth::guard($role)->login($user);
+            if ($checkExit) {
                 return redirect()->route("$role.welcome");
             }
             return redirect()->route('register');

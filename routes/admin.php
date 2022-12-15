@@ -3,6 +3,7 @@
 
     use App\Http\Controllers\Admin\PostController;
     use App\Http\Controllers\Admin\UserController;
+    use App\Http\Controllers\CompanyController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('/', function () {
@@ -31,5 +32,16 @@
         Route::post('/import-csv', [PostController::class, 'importCSV'])->name('import_csv');
 
     });
+
+    Route::group([
+        'as' => 'companies.',
+        'prefix' => 'companies/',
+    ], function () {
+        Route::post('/store', [CompanyController::class, 'store'])->name('store');
+
+
+    });
+
+
 
     //Route::get('/',[UserController::class, 'index'])->name('index');
