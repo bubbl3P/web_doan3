@@ -51,6 +51,7 @@
                 data: {page: {{ request()->get('page') ?? 1 }}},
                 success: function (response) {
                     response.data.data.forEach(function (each) {
+                        console.log(each);
                         let location = each.district + ' - ' + each.city;
                         let remotable = each.remotable ? 'x' : '';
                         let is_parttime = each.is_parttime ? 'x' : '';

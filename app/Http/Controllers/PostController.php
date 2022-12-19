@@ -51,6 +51,6 @@
 
         public function checkSlug(CheckSlugRequest $request): JsonResponse
         {
-                return $this->successResponse();
+            return $this->successResponse();
         }
     }

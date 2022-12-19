@@ -48,11 +48,11 @@
                     'numeric',
                     'min:1',
                 ],
-//                'remotable'        => [
-//                    'required',
-//                    Rule::in(PostRemotableEnum::getArrWithoutAll()),
-//                ],
-                'is_parttime' => [
+                'remotables'        => [
+                    'nullable',
+                    'array',
+                ],
+                'can_parttime' => [
                     'nullable',
                 ],
                 'start_date' => [

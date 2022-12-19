@@ -6,6 +6,14 @@
             color: red;
         }
 
+        input[data-switch]:checked + label:after {
+            left: 90px;
+        }
+
+        input[data-switch] + label {
+            width: 110px;
+        }
+
     </style>
 
 @endpush
@@ -68,10 +76,27 @@
                             <div class="form-group col-8">
                                 <label>Requirements</label>
                                 <textarea name="requirement" id="text-requirement" class="form-control"></textarea>
+
                             </div>
                             <div class="form-group col-4">
                                 <label>Number Applicant</label>
                                 <input type="number" class="form-control" name="number_applicants">
+                                <br>
+
+                                <input type="checkbox" id="remote" name="remotables[remote]" checked
+                                       data-switch="success">
+                                <label for="remote" class="" data-on-label="Can Remote"
+                                       data-off-label="No Remote"></label>
+
+                                <input type="checkbox" id="office" name="remotables[office]" checked
+                                       data-switch="success">
+                                <label for="office" class="" data-on-label="Office" data-off-label="No Office"></label>
+
+
+                                <br>
+                                <input type="checkbox" id="can_parttime" name="can_parttime" checked data-switch="info">
+                                <label for="can_parttime" class="" data-on-label="Can Parttime"
+                                       data-off-label="No Parttime"></label>
                             </div>
                         </div>
 
@@ -85,7 +110,6 @@
                                 <input type="date" class="form-control" name="end_date">
                             </div>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group col-6">
                                 <label>Title</label>
@@ -104,7 +128,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="modal-company" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -262,8 +285,26 @@
             });
         }
 
+        function showError(errors) {
+            let string = '<ul>';
+            if (Array.isArray(errors)) {
+                errors.forEach(function (each) {
+                    each.forEach(function (error) {
+                        string += `<li>${error}</li>`;
+                    });
+                });
+            } else {
+                string += `<li>${errors}</li>`;
+            }
+            string += '</ul>';
+            $("#div-error").html(string);
+            $("#div-error").removeClass("d-none").show();
+            notifyError(string);
+        }
+
+
         function submitForm(type) {
-            const obj = $("#form-create-"+type);
+            const obj = $("#form-create-" + type);
             const formData = new FormData(obj[0]);
             $.ajax({
                 url: obj.attr('action'),
@@ -277,21 +318,24 @@
 
                 encrypt: 'multipart/form-data',
                 success: function (response) {
-                    $("#div-error").hide();
+                    if (response.success) {
+                        $("#modal-company").modal("hide");
+                        $("#div-error").hide();
+                        notifySuccess();
+                    } else {
+                        showError(response.message);
+                    }
                 },
                 error: function (response) {
-                    const errors = Object.values(response.responseJSON.errors);
-                    let string = '<ul>';
-                    errors.forEach(function (each) {
-                        each.forEach(function (error) {
-                            $("#div-error").append($('<li>').append(error));
-                            string += `<li>${error}</li>`;
-                        });
-                        string += '</ul>';
-                        $("#div-error").html(string);
-                        $("#div-error").removeClass("d-none").show();
+                    let errors;
+                    if (response.responseJSON.errors) {
+                        errors = Object.values(response.responseJSON.errors);
+                        showError(errors);
+                    } else {
+                        errors = response.responseJSON.errors;
+                        showError(errors);
+                    }
 
-                    })
                 },
             });
         }

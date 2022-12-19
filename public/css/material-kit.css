@@ -1483,19 +1483,19 @@ fieldset[disabled]
 .checkbox label {
     cursor: pointer;
     padding-left: 0;
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .form-group.is-focused .checkbox label {
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .form-group.is-focused .checkbox label:hover, .form-group.is-focused .checkbox label:focus {
-    color: rgba(0,0,0, .54);
+    color: rgba(0, 0, 0, .54);
 }
 
 fieldset[disabled] .form-group.is-focused .checkbox label {
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .checkbox input[type=checkbox] {
@@ -1531,11 +1531,11 @@ fieldset[disabled] .form-group.is-focused .checkbox label {
     opacity: 0;
     margin: 0;
     top: 0;
-    -webkit-transform: scale3d(2.3,2.3,1);
-    -moz-transform: scale3d(2.3,2.3,1);
-    -o-transform: scale3d(2.3,2.3,1);
-    -ms-transform: scale3d(2.3,2.3,1);
-    transform: scale3d(2.3,2.3,1);
+    -webkit-transform: scale3d(2.3, 2.3, 1);
+    -moz-transform: scale3d(2.3, 2.3, 1);
+    -o-transform: scale3d(2.3, 2.3, 1);
+    -ms-transform: scale3d(2.3, 2.3, 1);
+    transform: scale3d(2.3, 2.3, 1);
 }
 
 .checkbox .checkbox-material .check {
@@ -1543,7 +1543,7 @@ fieldset[disabled] .form-group.is-focused .checkbox label {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 1px solid rgba(0,0,0, .54);
+    border: 1px solid rgba(0, 0, 0, .54);
     overflow: hidden;
     z-index: 1;
     border-radius: 3px;
@@ -1630,7 +1630,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .checkbox input[type=checkbox][disabled] + .checkbox-material .check:after {
-    background-color: rgba(0,0,0, 0.87);
+    background-color: rgba(0, 0, 0, 0.87);
     transform: rotate(-45deg);
 }
 
@@ -1680,19 +1680,19 @@ fieldset[disabled] .checkbox input[type=checkbox],
 
 .togglebutton label {
     cursor: pointer;
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .form-group.is-focused .togglebutton label {
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .form-group.is-focused .togglebutton label:hover, .form-group.is-focused .togglebutton label:focus {
-    color: rgba(0,0,0, .54);
+    color: rgba(0, 0, 0, .54);
 }
 
 fieldset[disabled] .form-group.is-focused .togglebutton label {
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .togglebutton label input[type=checkbox] {
@@ -1730,7 +1730,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
     left: -5px;
     top: -3px;
-    border: 1px solid rgba(0,0,0, .54);
+    border: 1px solid rgba(0, 0, 0, .54);
     transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
 }
 
@@ -1764,19 +1764,19 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     cursor: pointer;
     padding-left: 35px;
     position: relative;
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .form-group.is-focused .radio label {
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .form-group.is-focused .radio label:hover, .form-group.is-focused .radio label:focus {
-    color: rgba(0,0,0, .54);
+    color: rgba(0, 0, 0, .54);
 }
 
 fieldset[disabled] .form-group.is-focused .radio label {
-    color: rgba(0,0,0, 0.26);
+    color: rgba(0, 0, 0, 0.26);
 }
 
 .radio label span {
@@ -1788,7 +1788,7 @@ fieldset[disabled] .form-group.is-focused .radio label {
 }
 
 .radio label .circle {
-    border: 1px solid rgba(0,0,0, .54);
+    border: 1px solid rgba(0, 0, 0, .54);
     height: 15px;
     width: 15px;
     border-radius: 100%;
@@ -1799,18 +1799,18 @@ fieldset[disabled] .form-group.is-focused .radio label {
     width: 15px;
     border-radius: 100%;
     background-color: #9c27b0;
-    -webkit-transform: scale3d(0,0,0);
-    -moz-transform: scale3d(0,0,0);
-    -o-transform: scale3d(0,0,0);
-    -ms-transform: scale3d(0,0,0);
-    transform: scale3d(0,0,0);
+    -webkit-transform: scale3d(0, 0, 0);
+    -moz-transform: scale3d(0, 0, 0);
+    -o-transform: scale3d(0, 0, 0);
+    -ms-transform: scale3d(0, 0, 0);
+    transform: scale3d(0, 0, 0);
 }
 
 .radio label .check:after {
     display: block;
     position: absolute;
     content: "";
-    background-color: rgba(0,0,0, 0.87);
+    background-color: rgba(0, 0, 0, 0.87);
     left: -18px;
     top: -18px;
     height: 50px;
@@ -1819,11 +1819,11 @@ fieldset[disabled] .form-group.is-focused .radio label {
     z-index: 1;
     opacity: 0;
     margin: 0;
-    -webkit-transform: scale3d(1.5,1.5,1);
-    -moz-transform: scale3d(1.5,1.5,1);
-    -o-transform: scale3d(1.5,1.5,1);
-    -ms-transform: scale3d(1.5,1.5,1);
-    transform: scale3d(1.5,1.5,1);
+    -webkit-transform: scale3d(1.5, 1.5, 1);
+    -moz-transform: scale3d(1.5, 1.5, 1);
+    -o-transform: scale3d(1.5, 1.5, 1);
+    -ms-transform: scale3d(1.5, 1.5, 1);
+    transform: scale3d(1.5, 1.5, 1);
 }
 
 .radio label input[type=radio]:not(:checked) ~ .check:after {
@@ -1936,6 +1936,7 @@ output {
     input[type="month"].form-control {
         line-height: 36px;
     }
+
     input[type="date"].input-sm,
     .input-group-sm input[type="date"],
     input[type="time"].input-sm,
@@ -1949,6 +1950,7 @@ output {
     input[type="month"] {
         line-height: 24px;
     }
+
     input[type="date"].input-lg,
     .input-group-lg input[type="date"],
     input[type="time"].input-lg,
@@ -2925,10 +2927,12 @@ select.form-control[multiple],
         margin-top: 15px;
         margin-bottom: 15px;
     }
+
     .navbar .navbar-nav .open .dropdown-menu > .dropdown-header {
         border: 0;
         color: inherit;
     }
+
     .navbar .navbar-nav .open .dropdown-menu .divider {
         border-bottom: 1px solid;
         opacity: 0.08;
@@ -3341,10 +3345,12 @@ fieldset[disabled] .navbar .btn-link:focus {
     }
 */
     }
+
     .navbar .navbar-brand {
         height: 50px;
         padding: 10px 15px;
     }
+
     .navbar .navbar-nav > li > a {
         padding-top: 15px;
         padding-bottom: 15px;
@@ -3577,7 +3583,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .alert-default a, .alert-default .alert-link {
-    color: rgba(0,0,0, 0.87);
+    color: rgba(0, 0, 0, 0.87);
 }
 
 .alert .alert-icon {
@@ -3967,7 +3973,7 @@ h2.title {
     width: 100%;
     margin-bottom: 30px;
     border-radius: 6px;
-    color: rgba(0,0,0, 0.87);
+    color: rgba(0, 0, 0, 0.87);
     background: #fff;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
@@ -4774,13 +4780,16 @@ h2.title {
         -ms-backface-visibility: visible;
         backface-visibility: visible;
     }
+
     .rotating-card-container .card .back {
         visibility: hidden;
         transition: visibility 0.3s cubic-bezier(0.34, 1.45, 0.7, 1);
     }
+
     .rotating-card-container .card .front {
         z-index: 4;
     }
+
     .rotating-card-container:not(.manual-flip):hover .card .back,
     .rotating-card-container.manual-flip.hover .card .back {
         z-index: 5;
@@ -9277,14 +9286,17 @@ select.selectpicker {
         float: none !important;
         width: 100%;
     }
+
     .navbar.navbar-transparent {
         padding-top: 10px;
         border-radius: 0;
     }
+
     .main-raised {
         margin-left: 10px;
         margin-right: 10px;
     }
+
     .profile-page .page-header {
         min-height: 40vh;
         height: auto;
@@ -9296,6 +9308,7 @@ select.selectpicker {
         margin-left: -20px;
         margin-right: -20px;
     }
+
     .presentation-page .section-sections .container-fluid {
         padding: 0;
     }
@@ -9327,10 +9340,12 @@ select.selectpicker {
     .navbar .navbar-collapse {
         text-align: center;
     }
+
     .navbar .navbar-center {
         display: inline-block;
         float: none;
     }
+
     .table-responsive {
         overflow: auto;
     }
@@ -9341,61 +9356,76 @@ select.selectpicker {
         height: auto;
         min-height: 60vh;
     }
+
     .page-header .iframe-container {
         padding: 30px 0;
     }
+
     .footer nav,
     .footer .social-area {
         float: none !important;
     }
+
     .card-form-horizontal .form-group {
         padding-bottom: 20px;
     }
+
     .contactus-2 .card-contact {
         margin: 45px 0 0;
     }
+
     .contactus-2 .map {
         height: auto;
         min-height: 910px;
     }
+
     .carousel .page-header {
         padding: 0 30px;
     }
+
     .carousel .buttons {
         margin-bottom: 100px;
     }
+
     .btn.btn-simple,
     .navbar .navbar-nav > li > a.btn.btn-simple {
         padding-left: 0;
         padding-right: 0;
         text-align: left;
     }
+
     .presentation-page .section-components .image-container,
     .index-page .section-components .image-container {
         height: 400px;
     }
+
     .presentation-page .section-components .image-container img,
     .index-page .section-components .image-container img {
         max-width: 410px;
         height: auto;
     }
+
     .presentation-page .section-cards .image-container,
     .index-page .section-cards .image-container {
         height: 300px;
         margin-top: -100px;
     }
+
     .presentation-page .section-cards .image-container img,
     .index-page .section-cards .image-container img {
         max-width: 500px;
     }
+
     .presentation-page .section-content,
     .index-page .section-content {
         padding-top: 0;
     }
+
     .presentation-page .section-overview .card .content,
     .index-page .section-overview .card .content {
         text-align: center;
     }
+
     .presentation-page .section-overview .card-image,
     .index-page .section-overview .card-image {
         max-width: 60px;
@@ -9409,6 +9439,7 @@ select.selectpicker {
     .presentation-page .brand h1 {
         font-size: 3em;
     }
+
     .presentation-page .pro-badge {
         font-size: 14px;
         margin-right: 0;
@@ -9417,6 +9448,7 @@ select.selectpicker {
         top: -4px;
         display: inline-block;
     }
+
     .subscribe-line .btn {
         margin-top: 15px;
     }
@@ -9435,13 +9467,16 @@ select.selectpicker {
         z-index: 1029;
         overflow-x: hidden;
     }
+
     .navbar-header {
         float: none;
     }
+
     .navbar-header .navbar-toggle {
         display: block;
         float: right;
     }
+
     .navbar-collapse {
         position: fixed;
         display: block;
@@ -9470,9 +9505,11 @@ select.selectpicker {
         -ms-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
         transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
     }
+
     .navbar-collapse.collapse {
         height: 100vh !important;
     }
+
     .navbar-collapse ul {
         position: relative;
         z-index: 3;
@@ -9481,6 +9518,7 @@ select.selectpicker {
         float: none !important;
         margin: 0;
     }
+
     .navbar-collapse .nav > li:after {
         width: calc(100% - 30px);
         content: "";
@@ -9489,9 +9527,11 @@ select.selectpicker {
         margin-left: 15px;
         background-color: #e5e5e5;
     }
+
     .navbar-collapse .nav > li:last-child:after {
         display: none;
     }
+
     .navbar-collapse::after {
         top: 0;
         left: 0;
@@ -9503,59 +9543,75 @@ select.selectpicker {
         content: "";
         z-index: 1;
     }
+
     .navbar.navbar-transparent .navbar-toggle .icon-bar {
         color: #FFFFFF;
     }
+
     .navbar.navbar-default .navbar-toggle .icon-bar {
         color: inherit;
     }
+
     .navbar .navbar-collapse .caret {
         position: absolute;
         right: 16px;
         margin-top: 8px;
     }
+
     .navbar .navbar-collapse .nav > li {
         padding: 0;
         float: none;
     }
+
     .navbar .navbar-collapse .navbar-nav {
         margin-top: 0;
     }
+
     .navbar .navbar-collapse .navbar-nav > li > a {
         color: #3C4858;
         margin: 5px 15px;
     }
+
     .navbar .navbar-collapse .navbar-nav > li > a:hover, .navbar .navbar-collapse .navbar-nav > li > a:focus {
         color: #3C4858;
     }
+
     .navbar .navbar-collapse .navbar-nav > li.button-container > a {
         margin: 15px;
     }
+
     .navbar .navbar-collapse .navbar-nav > li.open > .dropdown-menu {
         padding-bottom: 10px;
         margin-bottom: 5px;
         box-shadow: none;
     }
+
     .navbar .navbar-collapse .open .dropdown-menu.dropdown-with-icons > li > a {
         padding: 12px 20px 12px 35px;
     }
+
     .navbar .navbar-collapse .open .dropdown-menu > li > a {
         color: #3C4858;
         margin: 0;
         padding-left: 46px;
     }
+
     .navbar .navbar-collapse .open .dropdown-menu > li > a:hover, .navbar .navbar-collapse .open .dropdown-menu > li > a:focus {
         color: #FFFFFF;
     }
+
     .navbar .navbar-collapse .dropdown-menu li {
         margin: 0 15px;
     }
+
     .navbar .navbar-collapse .dropdown.open .dropdown-menu {
         display: block;
     }
+
     .navbar .navbar-collapse .dropdown .dropdown-menu {
         display: none;
     }
+
     nav .container,
     nav .navbar-header {
         -webkit-transition: transform 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
@@ -9564,6 +9620,7 @@ select.selectpicker {
         -ms-transition: transform 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
         transition: transform 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
     }
+
     .nav-open nav .navbar-header {
         left: 0;
         -webkit-transform: translate3d(-245px, 0, 0);
@@ -9572,6 +9629,7 @@ select.selectpicker {
         -ms-transform: translate3d(-245px, 0, 0);
         transform: translate3d(-245px, 0, 0);
     }
+
     .nav-open .navbar-collapse {
         -webkit-transform: translate3d(0px, 0, 0);
         -moz-transform: translate3d(0px, 0, 0);
@@ -9579,10 +9637,12 @@ select.selectpicker {
         -ms-transform: translate3d(0px, 0, 0);
         transform: translate3d(0px, 0, 0);
     }
+
     .features-5 .container [class*="col-"] {
         border-right: 0;
         border-left: 0;
     }
+
     .features-5 .container .row:last-child [class*="col-"]:last-child,
     .features-5 .container .row:last-child [class*="col-"]:nth-last-child(2) {
         border-top: 1px solid rgba(255, 255, 255, 0.35);

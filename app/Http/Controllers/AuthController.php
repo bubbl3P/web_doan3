@@ -5,6 +5,7 @@
     use App\Enums\UserRoleEnum;
     use App\Http\Requests\Auth\RegisteringRequest;
     use App\Models\User;
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
@@ -42,12 +43,13 @@
             }
             $user->name = $data->getName();
             $user->avatar = $data->getAvatar();
-            $user->role =UserRoleEnum::ADMIN;
+            $user->role = UserRoleEnum::ADMIN;
             $user->save();
+            $role = getRoleByKey($user->role);
 
-            $role = strtolower(UserRoleEnum::getKeys($user->role)[0]);
+            Auth::login($user, true);
 
-            Auth::guard($role)->login($user);
+
             if ($checkExit) {
                 return redirect()->route("$role.welcome");
             }
@@ -55,27 +57,32 @@
 
         }
 
-        public function registering(RegisteringRequest $request)
+        public function registering(RegisteringRequest $request): RedirectResponse
         {
             $password = Hash::make($request->password);
-            if (auth()->check()) {
-                if (auth()->check()) {
-                    User::where('id', auth()->user()->id)
-                        ->update([
-                            'password' => $password,
-
-                        ]);
-                } else {
-                    $user = User::create([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'password' => $password,
-                    ]);
-                    Auth::login($user);
-                    return view('layout.master');
-                }
-
+            $roleKey = $request->role;
+            $role = getRoleByKey($roleKey);
+            if (!auth()->check()) {
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $password,
+                    'role' => $roleKey,
+                ]);
+                Auth::guard($role)->login($user);
             }
+
+            return redirect()->route("$role.welcome");
+
+        }
+
+        public function logout(Request $request): RedirectResponse
+        {
+            Auth::logout();
+            $request->session()->invalidate();
+
+            return redirect()->route('login');
+
         }
 
     }

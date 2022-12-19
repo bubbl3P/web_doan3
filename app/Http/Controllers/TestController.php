@@ -10,6 +10,7 @@
     use App\Models\Post;
     use App\Models\User;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\DB;
 
     class TestController extends Controller
     {
@@ -25,41 +26,8 @@
 
         public function test()
         {
-            try {
-                $companyName = 'ABCCC';
-                $language = 'PHP, Java, Kotlin';
-                $city = 'HCM';
-                $link = 'acv';
 
-                $company = Company::firstOrCreate([
-                    'name' => $companyName,
-                ], [
-                    'city' => $city,
-                    'country' => 'Vietnam',
-                ]);
+            return view('layout_frontpage.posts');
 
-                $post = Post::create([
-                    'job_title' => $language,
-                    'company_id' => $company->id,
-                    'city' => $city,
-                    'status' => PostStatusEnum::ADMIN_APPROVED,
-                ]);
-
-                $languages = explode(', ', $language);
-                foreach ($languages as $language) {
-                    Language::firstOrCreate([
-                        'name' => trim($language),
-                    ]);
-                }
-
-                File::create([
-                    'post_id' => $post->id,
-                    'link' => $link,
-                    'type' => FileTypeEnum::JD,
-
-                ]);
-            }catch (\Throwable $e){
-                dd($array);
-            }
         }
     }

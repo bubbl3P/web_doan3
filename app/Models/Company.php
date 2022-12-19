@@ -14,14 +14,10 @@ class Company extends Model
         'name',
         'city',
         'address',
-        'address2',
-        'district',
-        'city',
         'country',
         'zipcode',
         'phone',
         'email',
         'logo',
-
     ];
 }

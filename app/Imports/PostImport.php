@@ -3,6 +3,7 @@
     namespace App\Imports;
 
     use App\Enums\FileTypeEnum;
+    use App\Enums\PostRemotableEnum;
     use App\Enums\PostStatusEnum;
     use App\Models\Company;
     use App\Models\File;
@@ -20,20 +21,35 @@
         {
             foreach ($array as $each) {
                 try {
+                    $remotable = PostRemotableEnum::OFFICE_ONLY;
                     $companyName = $each['cong_ty'];
                     $language = $each['ngon_ngu'];
                     $city = $each['dia_diem'];
+                    if ($city === 'Nhiều') {
+                        $city = NULL;
+                    } else if ($city === 'Remote') {
+                        $remotable = PostRemotableEnum::REMOTE_ONLY;
+                        $city = NULL;
+                    } else {
+                        $city = str_replace([
+                            'HN',
+                            'HCM',
+                        ], [
+                            'Hà Nội',
+                            'Hồ Chí Minh'
+                        ], $city);
+                    }
+
                     $link = $each['link'];
 
                     if (!empty($companyName)) {
                         $companyID = Company::firstOrCreate([
                             'name' => $companyName,
                         ], [
-                            'city' => $city,
                             'country' => 'Vietnam',
                         ])->id;
-                    }else{
-                        $companyID = null;
+                    } else {
+                        $companyID = NULL;
                     }
 
 
@@ -42,6 +58,7 @@
                         'company_id' => $companyID,
                         'city' => $city,
                         'status' => PostStatusEnum::ADMIN_APPROVED,
+                        'remotable' => $remotable,
                     ]);
 
                     $languages = explode(', ', $language);
@@ -57,7 +74,7 @@
                         'type' => FileTypeEnum::JD,
                     ]);
                 } catch (\Throwable $e) {
-                    dd($each,  $e);
+                    dd($each, $e);
 
                 }
 

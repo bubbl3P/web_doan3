@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4 || 8.* ",
+        "barryvdh/laravel-translation-manager": "^0.6.3",
         "bensampo/laravel-enum": "^4.2",
         "cviebrock/eloquent-sluggable": "^8.0",
         "doctrine/dbal": "^3.5",
@@ -44,7 +45,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files":  [
+            "app/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
