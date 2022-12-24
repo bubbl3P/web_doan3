@@ -9,9 +9,9 @@ use Illuminate\Validation\Rule;
 class CheckSlugRequest extends FormRequest
 {
 
-    public function authorize()
+    public function authorize(): bool
     {
-        return true;
+        return  true;
     }
 
     public function rules()

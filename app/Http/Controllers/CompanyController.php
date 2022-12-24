@@ -52,7 +52,7 @@
 
             } catch (Throwable $e) {
 
-                return $this->errorResponse();
+                return $this->errorResponse($e);
             }
 
         }

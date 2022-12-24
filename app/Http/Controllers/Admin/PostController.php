@@ -5,12 +5,14 @@
     use App\Enums\ObjectLanguageTypeEnum;
 
     use App\Enums\PostRemotableEnum;
+    use App\Enums\PostStatusEnum;
     use App\Http\Controllers\Controller;
     use App\Http\Controllers\ResponseTrait;
     use App\Http\Controllers\SystemConfigController;
     use App\Http\Requests\Post\StoreRequest;
     use App\Imports\PostImport;
     use App\Models\Company;
+    use App\Models\File;
     use App\Models\Language;
     use App\Models\ObjectLanguage;
     use App\Models\Post;
@@ -30,17 +32,29 @@
 
         public function __construct()
         {
+
             $this->model = Post::query();
             $this->table = (new Post())->getTable();
             View::share('title', ucwords($this->table));
             View::share('table', $this->table);
         }
 
-        public function index()
+        public function index(Request $request)
         {
 
 
-            return view('admin.posts.index');
+            $data = Post::query()
+            ->get();
+
+
+            $status = Post::query()
+                ->select('status')
+                ->get();
+            return view('admin.posts.index', [
+                'data' => $data,
+                'status' => $status,
+
+            ]);
         }
 
         public function create()
@@ -81,9 +95,11 @@
                     "start_date",
                     "end_date",
                     "number_applicants",
+                    "experience",
                     "slug",
                 ]);
 
+                $link = $request->get('link');
                 $companyName = $request->get('company');
 
                 if (!empty($companyName)) {
@@ -92,6 +108,15 @@
                             'name' => $companyName,
                         ])->id;
                 }
+
+                if(!empty($link)){
+                    $arr['link'] = File::firstOrCreate(
+                        [
+                            'link' => $link
+                        ]
+                    )->id;
+                }
+
                 if ($request->has('remotables')) {
                     $remotables = $request->get('remotables');
                     if (!empty($remotables['remote']) && !empty($remotables['office'])) {
@@ -128,5 +153,15 @@
                 DB::rollBack();
                 return $this->errorResponse($e->getMessage());
             }
+        }
+
+        public function changeStatus(Request $request): JsonResponse
+        {
+            $post = Post::find($request->status_id);
+            $post->status = $request->status;
+            $post->save();
+
+            return $this->successResponse();
+
         }
     }

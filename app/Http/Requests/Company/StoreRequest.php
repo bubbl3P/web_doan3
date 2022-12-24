@@ -13,9 +13,9 @@
          *
          * @return bool
          */
-        public function authorize()
+        public function authorize(): bool
         {
-            return true;
+            return  true;
         }
 
         /**
@@ -32,14 +32,14 @@
                     'filled',
                     'min:0'
                 ],
-                'city' => [
-                    'string',
-                    'required',
-                ],
-                'district' => [
-                    'nullable',
-                    'string'
-                ],
+//                'city' => [
+//                    'string',
+//                    'required',
+//                ],
+//                'district' => [
+//                    'nullable',
+//                    'string'
+//                ],
                 'address' => [
                     'nullable',
                     'string'
@@ -49,10 +49,10 @@
                     'string',
                     Rule::in(CompanyCountryEnum::getKeys()),
                 ],
-                'address2' => [
-                    'nullable',
-                    'string'
-                ],
+//                'address2' => [
+//                    'nullable',
+//                    'string'
+//                ],
                 'zipcode' => [
                     'nullable',
                     'string'

@@ -82,7 +82,9 @@
                                 <label>Number Applicant</label>
                                 <input type="number" class="form-control" name="number_applicants">
                                 <br>
-
+                                <label>Experience</label>
+                                <input type="number" class="form-control" name="experience">
+                                <br>
                                 <input type="checkbox" id="remote" name="remotables[remote]" checked
                                        data-switch="success">
                                 <label for="remote" class="" data-on-label="Can Remote"
@@ -119,6 +121,9 @@
                                 <label>Slug</label>
                                 <input type="text" class="form-control" name="slug" id="slug">
                             </div>
+                        </div>
+                        <div class="form-row">
+
                         </div>
                         <div class="form-group">
                             <button id="btn-submit" class="btn btn-success">Create</button>
@@ -189,6 +194,7 @@
                                 <label>Email</label>
                                 <input type="email" name="email" class="form-control">
                             </div>
+
                             <div class="form-group col-6">
                                 <label style="margin-right: 5px">Logo</label>
                                 <input type="file" name="logo"

@@ -4,12 +4,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
-                        Create
-                    </a>
-                    <label for="csv" class="btn btn-info mb-0">
-                        Import CSV
-                    </label>
+                    {{--                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">--}}
+                    {{--                        Create--}}
+                    {{--                    </a>--}}
+                    {{--                    <label for="csv" class="btn btn-info mb-0">--}}
+                    {{--                        Import CSV--}}
+                    {{--                    </label>--}}
                     <input type="file" name="csv" id="csv" class="d-none"
                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                     <nav class="float-right">
@@ -25,7 +25,7 @@
                             <th>Job Title</th>
                             <th>Location</th>
                             <th>Remotable</th>
-                            <th>Is Part-time</th>
+                            <th>Can Part-time</th>
                             <th>Range Salary</th>
                             <th>Date Range</th>
                             <th>Status</th>
@@ -54,7 +54,7 @@
                         console.log(each);
                         let location = each.district + ' - ' + each.city;
                         let remotable = each.remotable ? 'x' : '';
-                        let is_parttime = each.is_parttime ? 'x' : '';
+                        let can_parttime = each.can_parttime ? 'x' : '';
                         let range_salary = (each.min_salary && each.max_salary) ? each.min_salary + '-' + each.max_salary : '';
                         let date_range = (each.start_date && each.end_date) ? each.start_date + '-' + each.end_date : '';
                         let is_pinned = each.is_pinned ? 'x' : '';
@@ -64,14 +64,20 @@
                             .append($('<td>').append(each.job_title))
                             .append($('<td>').append(location))
                             .append($('<td>').append(remotable))
-                            .append($('<td>').append(is_parttime))
+                            .append($('<td>').append(can_parttime))
                             .append($('<td>').append(range_salary))
                             .append($('<td>').append(date_range))
-                            .append($('<td>').append(each.status))
+                            .append($('<td>').append($('<input type="checkbox" class="toggle-class" name="status" data-id="{{ $data[0]->id }}" {{ $status === true ? 'checked' : '' }} >')))
                             .append($('<td>').append(is_pinned))
                             .append($('<td>').append(created_at))
                         );
-
+                        {{--<select name="currency_salary" class="form-control">--}}
+                        {{--    @foreach($currencies as $currency => $value)--}}
+                        {{--    <option value="{{ $value }}">--}}
+                        {{--    {{ $currency }}--}}
+                        {{--    </option>--}}
+                        {{--    @endforeach--}}
+                        {{--</select>--}}
                     });
                     renderPagination(response.data.pagination);
                 },
@@ -123,6 +129,32 @@
                 })
 
             })
+
+
+            $(document).on('click', '.toggle-class', function () {
+                var status = $(this).prop('checked') === true ? 2 : 0;
+                var post_id = $(this).data('id');
+                alert(post_id);
+
+                $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    url: '{{ route('admin.posts.changeStatus')  }}',
+                    data: {
+                        'status': status,
+                        'status_id': post_id,
+                    },
+                    success: function (data) {
+
+                    },
+                    error: function (data) {
+                    }
+
+
+                });
+
+
+            });
         });
 
 

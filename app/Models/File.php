@@ -21,6 +21,7 @@
             static::creating(static function ($object) {
             $object->user_id =  user()->id;
 
+
             });
         }
     }

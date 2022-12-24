@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="brand">
-                    <h1 class="title">AdminLTE Bootstrap Admin Dashboard Template</h1>
-                    <h4>Free global delivery for all products. Use coupon <b>25summer</b> for an extra 25% Off</h4>
+                    <h1 class="title">Tìm Kiếm Việc Làm</h1>
+                    <h4></h4>
                 </div>
             </div>
         </div>

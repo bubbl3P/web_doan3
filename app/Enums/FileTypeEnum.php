@@ -5,12 +5,15 @@
     use BenSampo\Enum\Enum;
 
     /**
-     * @method static static OptionOne()
-     * @method static static OptionTwo()
-     * @method static static OptionThree()
      */
     final class FileTypeEnum extends Enum
     {
-        public const JD = 1;
-        public const CV = 2;
+        public const JD = '1';
+        public const CV = '2';
+
+        public static function getFileTypeKey(): array
+        {
+
+           return self::asArray();
+        }
     }

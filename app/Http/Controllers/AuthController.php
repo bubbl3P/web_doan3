@@ -25,33 +25,42 @@
 
         public function register()
         {
-            return view('auth.register');
+            $roles = UserRoleEnum::getRolesForRegister();
+            return view('auth.register', [
+                'roles' => $roles,
+            ]);
         }
 
-        public function callback($provider)
+        public function callback($provider): RedirectResponse
         {
             $data = Socialite::driver($provider)->user();
 
             $user = User::query()
                 ->where('email', $data->getEmail())
                 ->first();
+
             $checkExit = true;
+
+
             if (is_null($user)) {
                 $user = new User();
+
                 $user->email = $data->getEmail();
+                $user->role = UserRoleEnum::APPLICANT;
                 $checkExit = false;
             }
-            $user->name = $data->getName();
-            $user->avatar = $data->getAvatar();
-            $user->role = UserRoleEnum::ADMIN;
-            $user->save();
-            $role = getRoleByKey($user->role);
 
-            Auth::login($user, true);
+            $user->name   = $data->getName();
+            $user->avatar = $data->getAvatar();
+
+            auth()->login($user, true);
 
 
             if ($checkExit) {
-                return redirect()->route("$role.welcome");
+                $role = getRoleByKey($user->role);
+
+
+                return redirect()->route("$role.index");
             }
             return redirect()->route('register');
 
@@ -59,20 +68,30 @@
 
         public function registering(RegisteringRequest $request): RedirectResponse
         {
-            $password = Hash::make($request->password);
-            $roleKey = $request->role;
-            $role = getRoleByKey($roleKey);
-            if (!auth()->check()) {
+            $password = Hash::make($request->get('password'));
+            $role = $request->get('role');
+
+            if (auth()->check()) {
+                User::where('id', auth()->user()->id)
+                    ->update([
+                        'password' => $password,
+                        'role' => $role,
+                    ]);
+            } else {
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => $password,
-                    'role' => $roleKey,
+                    'role' => $role,
                 ]);
-                Auth::guard($role)->login($user);
+
+                Auth::login($user);
             }
 
-            return redirect()->route("$role.welcome");
+            $role = getRoleByKey($role);
+
+            dd($role);
+            return redirect()->route("$role.index");
 
         }
 

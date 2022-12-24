@@ -34,10 +34,7 @@
                 ],
                 'role' => [
                     'required',
-                    Rule::in([
-                        UserRoleEnum::APPLICANT,
-                        UserRoleEnum::HR,
-                    ])
+                    Rule::in(UserRoleEnum::getRolesForRegister()),
                 ]
 
             ];

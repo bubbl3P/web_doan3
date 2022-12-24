@@ -12,7 +12,7 @@
     <!-- App css -->
     <link href="{{ asset('css/icon.min.css')  }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app-creative-dark.min.css') }}" rel="stylesheet" type="text/css">
-        @stack('css')
+    @stack('css')
 </head>
 
 <body class=""

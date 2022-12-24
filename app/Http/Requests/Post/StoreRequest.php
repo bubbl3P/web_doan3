@@ -11,9 +11,9 @@
     class StoreRequest extends FormRequest
     {
 
-        public function authorize()
+        public function authorize(): bool
         {
-            return true;
+            return  true;
         }
 
 
@@ -59,6 +59,10 @@
                     'nullable',
                     'date',
                     'before:end_date',
+                ],
+                'experience' => [
+                    'required',
+                    'filled',
                 ],
                 'end_date' => [
                     'nullable',

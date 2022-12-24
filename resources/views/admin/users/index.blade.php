@@ -52,7 +52,9 @@
                         </div>
                         <div class="form-group">
                             <label for="clear"></label>
-                            <button class="btn btn-block" href=" {{ route("admin.users.index") }} " type="submit">Clear</button>
+                            <button class="btn btn-block" href=" {{ route("admin.users.index") }} " type="submit">
+                                Clear
+                            </button>
                         </div>
 
                     </form>
@@ -69,6 +71,7 @@
                             <th>City</th>
                             <th>Company</th>
                             <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,8 +110,13 @@
                                     <form action=" {{route("admin.$table.destroy", $each)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger">Delete</button>
+                                        <button class="btn btn-danger form-control">Delete</button>
                                     </form>
+                                </td>
+                                <td>
+                                    <div class="btn btn-primary form-control" >
+                                        Edit
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

@@ -17,6 +17,10 @@
     <!-- CSS Files -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/material-kit.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/icon.min.css')  }}" rel="stylesheet" type="text/css">
+{{--    <link href="{{ asset('css/app-creative-dark.min.css') }}" rel="stylesheet" type="text/css">--}}
+{{--    @stack('css')--}}
+
 </head>
 <body class="ecommerce-page">
 @include('layout_frontpage.navbar')
@@ -26,22 +30,8 @@
     <!-- section -->
     <div class="section">
         <div class="container">
-            <h3 class="section-title">
-                {{ __('frontpage.title') }}
-            </h3>
             <div class="row">
-                @include('layout_frontpage.sidebar')
-
-                <div class="col-md-9">
-                    <div class="row">
-                        @yield('content')
-                    </div>
-                    <div class="col-md-3" style="float: right">
-                        <button rel="tooltip" class="btn btn-rose btn-round" data-original-title="" title="">Load
-                            more...
-                        </button>
-                    </div>
-                </div>
+                @yield('content')
             </div>
         </div>
     </div><!-- section -->
@@ -62,29 +52,7 @@
 
 <!--	Plugin for Tags, full documentation here: http://xoxco.com/projects/code/tagsinput/   -->
 
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var slider2 = document.getElementById('sliderRefine');
-        noUiSlider.create(slider2, {
-            start: [42, 880],
-            connect: true,
-            range: {
-                'min': [30],
-                'max': [900]
-            }
-        });
-        var limitFieldMin = document.getElementById('price-left');
-        var limitFieldMax = document.getElementById('price-right');
-        slider2.noUiSlider.on('update', function (values, handle) {
-            if (handle) {
-                limitFieldMax.innerHTML = $('#price-right').data('currency') + Math.round(values[handle]);
-            } else {
-                limitFieldMin.innerHTML = $('#price-left').data('currency') + Math.round(values[handle]);
-            }
-        });
-    });
-</script>
+@stack('js')
 
 </body>
 </html>

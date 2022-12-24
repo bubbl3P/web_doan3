@@ -25,8 +25,10 @@
 
         public function index(): JsonResponse
         {
-            $data = $this->model->paginate();
+            $data = $this->model
+                ->paginate();
             foreach ($data as $each) {
+                $each->id = $each->ids;
                 $each->currency_salary = $each->currency_salary_code;
                 $each->status = $each->status_name;
             }
